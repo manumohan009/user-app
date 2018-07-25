@@ -1,0 +1,34 @@
+<div>
+   <h2>{{ title }}</h2>  <!--String interpolation -->
+  <h2 [textContent] = "title"></h2> <!--Property binding -->
+  
+  <!-- <img src="{{ imageUrl }}" /> <br/> String interpolation -->
+  <!-- <img [src]="imageUrl" /> Property binding  -->
+
+
+  <table border="1">
+    <tr>
+      <td [attr.colspan]="colSpan">NO data</td>  <!--Attribute  binding -->
+    </tr>
+  </table><br/>
+
+  <button class="btn btn-primary" [class.active]="isActive">Save</button><br/> <!--Class binding -->
+
+  <button [style.backgroundColor]="isActive? 'blue' : 'white'">Save</button><br/> <!--Style binding -->
+
+  <div (click)="onDivClick($event)">
+    <button (click)="onSave($event)">Save</button> <!--Event binding -->
+  </div><br/>
+
+  <input (keyup.enter)="onKeyUp($event)" /> <br/>  <!--Event filter -->
+
+  <input #email (keyup.enter)="onKeyUp(email.value)" /> <br/>  <!--Template variable -->
+
+  <input [(ngModel)]="myName" (keyup.enter)="onKeyUp()"  /> <br/>  <!--Two-way Binding -->
+
+  <app-courses></app-courses>  <!--Pipes -->
+
+</div>
+  
+
+
