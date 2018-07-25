@@ -77,7 +77,7 @@ Attribute directives - Modify the attributes of DOM elements -->
       'glyphicon-star-empty': !isSelected
     }"
     (click) = "onClick()"
- ></span> 
+ ></span>
 
     <!-- ------------------------------------------------------- -->
  <!-- ngStyle -->
@@ -85,7 +85,7 @@ Attribute directives - Modify the attributes of DOM elements -->
  <button
     [style.backgroundColor] = "canSave ? 'blue': 'gray'"
     [style.color] = "canSave ? 'white' : 'black'"
-    [style.fontWeight] = "canSave ? 'bold' : 'normal'" 
+    [style.fontWeight] = "canSave ? 'bold' : 'normal'"
 
     [ngStyle]="{
       'backgroundColor' : canSave ? 'blue' : 'gray',
@@ -97,10 +97,10 @@ Attribute directives - Modify the attributes of DOM elements -->
     <!-- ------------------------------------------------------- -->
  <!-- Safe traversal operator -->
 
-<span *ngIf="task.assignee">{{ task.assignee.name }}</span> 
+<span *ngIf="task.assignee">{{ task.assignee.name }}</span>
 <span>{{ task.assignee?.name }}</span> <!-- If assignee is null or undefined, angular will ignore this-->
 
 <!-- ------------------------------------------------------- -->
  <!-- Custom Directive -->
  <!-- <input type="text" appInputFormat [format]="'uppercase'" /> -->
- <input type="text" [appInputFormat] ="'lowercase'" />
+ <input type="text" [appInputFormat] ="'uppercase'" />
