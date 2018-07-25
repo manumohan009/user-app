@@ -1,11 +1,75 @@
-<form>
-  <div class="form-group">
-    <label for="firstName">First Name</label>
-    <input id="firstName" type="text" class="form-control">
+<h2>Chapter-7 Template driven form</h2>
+
+<form #f="ngForm" (ngSubmit)="submit(f)">
+  <div ngModelGroup="contact" #contact="ngModelGroup">
+    <div *ngIf="!contact.valid">...</div>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input required minlength="3" maxlength="10" pattern="banana" ngModel name="firstName" #firstName="ngModel" (change)="log(firstName)" type="text" class="form-control"/>
+      <div  class="alert alert-danger"  *ngIf="firstName.touched && !firstName.valid">
+        <div *ngIf="firstName.errors.required">
+          First name is required
+        </div>
+        <div *ngIf="firstName.errors.minlength">
+          First name should be minimum {{ firstName.errors.minlength.requiredLength}} charaters
+        </div>
+        <div *ngIf="firstName.errors.pattern">
+          First name doesn't match the pattern
+        </div>
+      </div>
+    </div>
   </div>
+
   <div class="form-group">
     <label for="comment">Comment</label>
-    <textarea id="comment" cols="30" rows="10" class="form-control"></textarea>
+    <input type="text" ngModel name="comment" id="comment" cols="30" rows="10" class="form-control"/>
   </div>
-  <button class="btn btn-primary">Submit</button>
+
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ngModel name="isSubscribed">Subscribe to mailing list
+    </label>
+  </div>
+  <div class="form-group">
+    <label for="contactMethod">Contact Method</label>
+    <select multiple ngModel name="contactMethod" id="contactMethod" class="form-control">
+      <option *ngFor="let method of contactMethods" [value]="method.id">{{ method.name }}</option>
+      <!-- <option *ngFor="let method of contactMethods" [ngValue]="method">{{ method.name }}</option> -->
+    </select>
+  </div>
+  <div class="radio">
+    <label >
+      <input ngModel type="radio" name="contactMethod" value="1"> Email
+    </label>
+  </div>
+  <div class="radio">
+      <label >
+        <input ngModel type="radio" name="contactMethod" value="2"> Phone
+      </label>
+    </div>
+    <!-- <div *ngFor="let method of contactMethods" class="radio">
+        <label >
+          <input ngModel type="radio" name="contactMethod" [value]="method.id"> {{ method.name }}
+        </label>
+    </div> -->
+  <p>
+    {{ f.value | json }}
+  </p>
+
+  <button class="btn btn-primary" [disabled]="!f.valid">Submit</button>
 </form>
+
+<!--
+  Class - FormControl - ngModel
+  For each input field in our form, we need to create an instance of the control class. With this control class, we can check the values stored in the input field
+  We can see if the input field has been touched, untouched, dirty, pristine, valid, errors
+
+  Class - FormGroup  - ngForm, ngModelGroup
+  To represent a group of controls in a form. Each form is essentially a control group; because it contains alteast one control. All the properties of the control class are also available in the FormGroup
+
+  2 Ways to create the control objects
+    1. Template driven form - Applying directives in our template and Angular will create the control objects implicitly; easier to create; Less control over validation
+    2. Reactive forms/ Model-Driven form - Create control objects explicitly; More control over the validation logic; Good for complex form; Unit testable;
+
+
+-->
